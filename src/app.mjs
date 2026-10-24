@@ -2,6 +2,8 @@ import { finite, rounded, description, classify, recommendation, validateWeather
 const $ = id => document.getElementById(id);
 const defaults = { name:'Schönsee', region:'Oberpfalz · Deutschland', latitude:49.5103, longitude:12.5476 };
 let place = defaults, entries = [], figures = [], randomFigure, data, request = 0, controller, searchController;
+let lastSaying;
+try { lastSaying = localStorage.getItem('grattler-last-saying'); } catch {}
 try { const saved = JSON.parse(localStorage.getItem('grattler-place')); if (saved && finite(saved.latitude) && finite(saved.longitude) && typeof saved.name === 'string') place = saved; } catch {}
 const status = (text, error = false) => { $('status').textContent = text; $('status').classList.toggle('error',error); };
 const format = (time, options = {}) => new Intl.DateTimeFormat('de-DE', { timeZone:data?.timezone || 'Europe/Berlin', ...options }).format(new Date(time*1000));
@@ -66,8 +68,12 @@ function render() {
   $('range').textContent = `${rounded(data.daily.temperature_2m_min[0])}° / ${rounded(data.daily.temperature_2m_max[0])}°`;
   $('weather-art').innerHTML = icon(c.weather_code,!!c.is_day);
   $('updated').textContent = `Datenstand ${format(c.time,{hour:'2-digit',minute:'2-digit'})} Uhr`;
-  const advice = recommendation(data, entries, `${place.latitude},${place.longitude}`);
+  const advice = recommendation(data, entries, `${place.latitude},${place.longitude}|${Math.random()}`, Date.now()/1000, lastSaying);
   const expired = Date.now()/1000 - c.time > 3*3600;
+  if (!expired && advice.entry) {
+    lastSaying = advice.entry.id;
+    try { localStorage.setItem('grattler-last-saying', lastSaying); } catch {}
+  }
   $('quote').textContent = expired ? 'Der Wetterzettel ist von gestern. Na ja, fast.' : advice.entry?.text || 'Erst aus dem Fenster schauen. Dann große Pläne machen.';
   $('advice-period').textContent = advice.night ? 'FÜR HEUTE NACHT' : 'FÜR HEUTE';
   const tags = [...new Set(advice.contexts.flat())];

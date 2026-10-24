@@ -31,7 +31,7 @@ export function classify({ code, feels, wind, gusts, rain, day = true }) {
 export function matches(rule, tags) {
   return rule.all.every(t => tags.includes(t)) && (!rule.any.length || rule.any.some(t => tags.includes(t))) && !rule.none.some(t => tags.includes(t));
 }
-export function choose(entries, contexts, period, seed, currentTemperature) {
+export function choose(entries, contexts, period, seed, currentTemperature, previousId) {
   const available = entries.filter(e => e.enabled && e.period === period
     && (e.when.currentTemperatureAbove === undefined || (finite(currentTemperature) && currentTemperature > e.when.currentTemperatureAbove)));
   const severe = ['hagel','gewitter','starke-boeen'].find(tag => contexts.some(c => c.includes(tag)));
@@ -41,6 +41,7 @@ export function choose(entries, contexts, period, seed, currentTemperature) {
   if (!candidates.length) return null;
   const priority = Math.max(...candidates.map(e => e.priority));
   candidates = candidates.filter(e => e.priority === priority).sort((a,b) => a.id.localeCompare(b.id));
+  if (candidates.length > 1) candidates = candidates.filter(e => e.id !== previousId);
   let hash = 2166136261;
   for (const char of seed) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
   return candidates[hash % candidates.length];
@@ -54,7 +55,7 @@ export function localParts(time, zone) {
 export function dailyDate(time, zone, options) {
   return new Intl.DateTimeFormat('de-DE', {timeZone:zone, ...options}).format(new Date((time+43200)*1000));
 }
-export function recommendation(data, entries, seed, now = Date.now() / 1000) {
+export function recommendation(data, entries, seed, now = Date.now() / 1000, previousId) {
   const zone = data.timezone;
   const current = localParts(now, zone);
   const night = current.hour >= 22 || current.hour < 6;
@@ -69,7 +70,7 @@ export function recommendation(data, entries, seed, now = Date.now() / 1000) {
     const tags = at(i).filter(tag => !['kalt','frostig','heiss'].includes(tag) || (i > 0 && at(i-1).includes(tag)) || (i+1 < h.time.length && at(i+1).includes(tag)));
     contexts.push(tags);
   }
-  return { entry:choose(entries, contexts, period, `${seed}|${current.date}|${period}`, data.current?.temperature_2m), night, contexts };
+  return { entry:choose(entries, contexts, period, `${seed}|${current.date}|${period}`, data.current?.temperature_2m, previousId), night, contexts };
 }
 export function validateWeather(data) {
   if (!data || !finite(data.current?.temperature_2m) || !finite(data.current?.time) || !data.timezone || !Array.isArray(data.hourly?.time) || !Array.isArray(data.daily?.time)) throw new Error('Die Wetterantwort ist unvollständig.');

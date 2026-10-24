@@ -4,7 +4,7 @@
 .advice::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(22,55,42,.87) 0%,rgba(22,55,42,.72) 43%,rgba(22,55,42,.27) 75%,rgba(22,55,42,.9) 100%)}
 .advice-top,.advice blockquote,.advice-reason,.advice-bottom{position:relative;z-index:2}
 .advice blockquote{text-shadow:0 2px 12px #10291f80}
-.advice .quote-mark{z-index:2}
+
 .advice-bottom{margin-top:auto}
 .character-note{color:#d0d9c8;font-size:12px;align-self:center}
 @media(max-width:740px){.advice{min-height:440px}}
