@@ -175,6 +175,28 @@
       "figureId": null
     },
     {
+      "id": "kalt-leons-bierkuehlschrank",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "kalt"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 30,
+      "text": "Heute ists kälter als in leons bierkühlschrank",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert"
+      }
+    },
+    {
       "id": "kalt-wind-anker-schal",
       "enabled": true,
       "period": "remaining-day",
@@ -227,8 +249,12 @@
         ]
       },
       "priority": 65,
-      "text": "Der Schirm will heute auswandern. Nimm eine Jacke, die dir treu bleibt.",
-      "figureId": null
+      "text": "Pisswetter. Heute ist der perfekte Zeitpunkt, um einen Müllfilm zu produzieren.",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert"
+      }
     },
     {
       "id": "hitze-schatten",
@@ -278,8 +304,12 @@
         ]
       },
       "priority": 90,
-      "text": "Heute hat selbst der Gartenstuhl Reisepläne. Du bleibst besser drin.",
-      "figureId": null
+      "text": "Amtliche Warnung für halbe Hemden: Verwehungsgefahr. Du bleibst besser drin.",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert"
+      }
     },
     {
       "id": "tag-neutral",
