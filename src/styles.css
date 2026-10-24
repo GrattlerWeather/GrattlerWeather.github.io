@@ -34,8 +34,17 @@
 .hours::-webkit-scrollbar-thumb:hover{background:var(--muted)}
 
 .donation-note{display:flex;align-items:center;justify-content:space-between;gap:36px;padding:30px 0;border-bottom:1px solid var(--line)}
-.donation-copy{max-width:660px}.donation-copy .eyebrow{font-size:8px;letter-spacing:1.5px;color:var(--muted)}
+.donation-copy{min-width:0}.donation-copy .eyebrow{font-size:8px;letter-spacing:1.5px;color:var(--red)}
 .donation-copy h2{font:700 26px/1.2 Georgia,serif;letter-spacing:-.4px;margin:10px 0}
 .donation-copy p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}
 .donation-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;text-decoration:none;white-space:nowrap}
 @media(max-width:740px){.donation-note{align-items:flex-start;flex-direction:column;gap:20px;padding:26px 0}.donation-copy h2{font-size:25px}.donation-link{font-size:11px}}
+
+.engagement-row{margin-top:42px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px;padding:28px 0}
+.engagement-row .community,.engagement-row .donation-note{margin:0;padding:0;border:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:18px;min-width:0}
+.engagement-row .donation-note{border-left:1px solid var(--line);padding-left:32px}
+.engagement-row .community h2{font:700 26px/1.2 Georgia,serif;letter-spacing:-.4px;margin:10px 0}
+.engagement-row .eyebrow{display:block;line-height:1.6;font-size:8px;letter-spacing:1.5px}
+.engagement-row .community p{font-size:12px;line-height:1.8;margin:0}
+.engagement-row .community .pill{margin:0}
+@media(max-width:1050px){.engagement-row{grid-template-columns:1fr;gap:24px}.engagement-row .donation-note{padding:24px 0 0;border-left:0;border-top:1px solid var(--line)}}
