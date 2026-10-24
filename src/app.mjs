@@ -139,7 +139,7 @@ $('locate').addEventListener('click',()=>{
   navigator.geolocation.getCurrentPosition(position=>load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude}),()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
 });
 $('refresh').addEventListener('click',()=>load());
-$('suggest').addEventListener('click',()=>$('suggest-dialog').showModal());$('close-dialog').addEventListener('click',()=>$('suggest-dialog').close());
+$('suggest').addEventListener('click',()=>{$('suggest-dialog').showModal();$('suggest-heading').focus({preventScroll:true});});$('close-dialog').addEventListener('click',()=>$('suggest-dialog').close());
 $('suggest-kind').addEventListener('change',()=>{const ticker=$('suggest-kind').value==='ticker';$('suggest-weather').hidden=ticker;$('suggest-weather').disabled=ticker;$('suggest-weather-label').hidden=ticker;});
 $('suggest-form').addEventListener('submit',event=>{
   event.preventDefault();
