@@ -5,23 +5,19 @@ import {fileURLToPath} from 'node:url';
 
 export async function figureCatalog(root) {
   const directory=path.join(root,'public/images/figuren');
-  let entries;
-  try { entries=await fs.readdir(directory,{withFileTypes:true}); }
-  catch(error) { if(error.code==='ENOENT')return {figures:[]}; throw error; }
-  const figures=await Promise.all(entries
-    .filter(entry=>entry.isFile() && !entry.name.startsWith('.') && /\.(png|jpe?g)$/i.test(entry.name))
-    .map(async entry=>{
-      const name=entry.name;
-      const optimized=path.join(directory,'weboptimiert',`${path.parse(name).name}.webp`);
-      try {
-        await fs.access(optimized);
-        return {src:`./public/images/figuren/weboptimiert/${encodeURIComponent(path.parse(name).name)}.webp`};
-      } catch(error) {
-        if(error.code!=='ENOENT')throw error;
-        return {src:`./public/images/figuren/${encodeURIComponent(name)}`};
-      }
-    }));
-  return {figures};
+  const figures=new Map();
+  // The deployed build contains only optimized files; discover these directly.
+  for(const subdirectory of ['', 'weboptimiert']) {
+    let entries;
+    try { entries=await fs.readdir(path.join(directory,subdirectory),{withFileTypes:true}); }
+    catch(error) { if(error.code==='ENOENT')continue; throw error; }
+    for(const entry of entries.sort((a,b)=>a.name.localeCompare(b.name,'en'))) {
+      if(!entry.isFile() || entry.name.startsWith('.') || !/\.(png|jpe?g|webp)$/i.test(entry.name))continue;
+      const prefix=subdirectory ? `${subdirectory}/` : '';
+      figures.set(path.parse(entry.name).name,{src:`./public/images/figuren/${prefix}${encodeURIComponent(entry.name)}`});
+    }
+  }
+  return {figures:[...figures.entries()].sort(([a],[b])=>a.localeCompare(b,'en')).map(([,figure])=>figure)};
 }
 
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
