@@ -2,6 +2,24 @@
   "version": 1,
   "entries": [
     {
+      "id": "langeweile-fruehrentner-wetterapp-actionfilm",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": []
+      },
+      "priority": 0,
+      "text": "Langeweile? Frührentner? Programmiere doch eine Wetterapp oder bastle einen KI-Actionfilm",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Wortlaut unverändert übernommen."
+      }
+    },
+    {
       "id": "guter-tag-nichts-tun",
       "enabled": true,
       "period": "remaining-day",

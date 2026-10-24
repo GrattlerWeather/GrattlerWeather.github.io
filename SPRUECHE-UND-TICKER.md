@@ -6,10 +6,11 @@ Diese Übersicht wird bei jedem Release-Build automatisch aus den Inhaltsdateien
 
 ## Sprüche des Tages · Grattlerrat
 
-18 Einträge. Die vollständigen Quellenangaben und Zuschreibungen stehen in [content/sprueche.json](content/sprueche.json). Nutzerbeitrag, redaktionelle Bearbeitung und Fundstück sind unterschiedliche Einordnungen; ein Fundstück ist kein verifiziertes Originalzitat.
+19 Einträge. Die vollständigen Quellenangaben und Zuschreibungen stehen in [content/sprueche.json](content/sprueche.json). Nutzerbeitrag, redaktionelle Bearbeitung und Fundstück sind unterschiedliche Einordnungen; ein Fundstück ist kein verifiziertes Originalzitat.
 
 | Spruch | Wetterbedingung | Zeitraum | Priorität | Status | Einordnung |
 | --- | --- | --- | ---: | --- | --- |
+| Langeweile? Frührentner? Programmiere doch eine Wetterapp oder bastle einen KI-Actionfilm | Ohne besondere Wetterbedingung (Rückfalltext) | Restlicher Tag | 0 | Aktiv | Nutzerbeitrag |
 | Heute ist ein guter Tag um nichts zu tun. | Ohne besondere Wetterbedingung (Rückfalltext) | Restlicher Tag | 0 | Aktiv | Nutzerbeitrag |
 | Bei dem Wetter wirds unterm Dach stickig. | Nicht bei: Hagel, Gewitter, Starke Böen; Aktuelle Außentemperatur strikt über 25 °C | Restlicher Tag | 50 | Aktiv | Nutzerbeitrag |
 | Wer Haid sät, wird Sturm ernten. | Gemeinsam: Wind; Nicht bei: Hagel, Gewitter, Starke Böen | Restlicher Tag | 40 | Aktiv | Nutzerbeitrag |
