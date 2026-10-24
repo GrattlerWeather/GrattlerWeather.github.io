@@ -8,9 +8,9 @@
 .advice-bottom{margin-top:auto}
 .character-note{color:#d0d9c8;font-size:12px;align-self:center}
 @media(max-width:740px){.advice{min-height:440px}}
-.fan-links{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--line)}
-.fan-links a{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-decoration:none;padding:4px 0}
-.fan-links a+a{border-left:1px solid var(--line);padding-left:28px}
+.fan-links{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr) minmax(0,1fr);gap:26px;padding:26px 0;border-bottom:1px solid var(--line)}
+.fan-links>a{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-decoration:none;padding:4px 0}
+.fan-links>a+a{border-left:1px solid var(--line);padding-left:28px}
 .fan-links .eyebrow{color:var(--red);font-size:8px}
 .fan-links strong{font:700 22px Georgia,serif;color:var(--green)}
 .fan-links a>span:last-child{font-size:11px;color:var(--muted);line-height:1.6}
@@ -18,6 +18,15 @@
 .fan-links a.sponsor-link{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:16px;row-gap:7px;align-content:start;align-items:center}
 .sponsor-link>.sponsor-logo{grid-column:1;grid-row:1 / span 3;display:block;width:72px;height:72px;object-fit:contain;border-radius:50%}
 .sponsor-link>span,.sponsor-link>strong{grid-column:2}
-@media(max-width:740px){.fan-links{grid-template-columns:1fr;gap:22px}.fan-links a+a{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.fan-links strong{font-size:21px}}
+@media(max-width:740px){.fan-links{grid-template-columns:1fr;gap:22px}.fan-links>a+a{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.fan-links strong{font-size:21px}}
 
 .sponsor-link>.sponsor-thanks{grid-column:1 / -1;font-size:11px;line-height:1.7;color:var(--muted);margin-top:5px}
+
+.friends{min-width:0;border-left:1px solid var(--line);padding:4px 0 4px 26px}
+.friend-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.friend-links a{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;padding:0;text-decoration:none;text-align:center}
+.friend-links img{display:block;width:44px;height:44px;border-radius:50%;object-fit:cover}
+.friend-links a>span:last-child{font-size:10px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.friend-links a:hover span{text-decoration:underline;text-underline-offset:3px}
+@media(min-width:741px) and (max-width:1050px){.fan-links{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}.friends{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.friend-links{grid-template-columns:repeat(3,100px)}}
+@media(max-width:740px){.friends{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.friend-links{gap:16px}}
