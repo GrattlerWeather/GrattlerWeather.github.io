@@ -1,4 +1,4 @@
-# Grattlerwetter
+# Grattlerweather
 
 Statische Website mit Wetterdaten von Open-Meteo.
 
