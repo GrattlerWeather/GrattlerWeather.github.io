@@ -17,7 +17,7 @@ $('advice-toggle').addEventListener('click',()=>{
 const defaults = { name:'Schönsee', region:'Oberpfalz · Deutschland', latitude:49.5103, longitude:12.5476 };
 let place = defaults, entries = [], figures = [], randomFigure, data, request = 0, controller, searchController;
 let forecastDays = 5, airController, airLoaded = false;
-let lastSaying;
+let lastSaying, adviceRendered = false;
 try { lastSaying = localStorage.getItem('grattler-last-saying'); } catch {}
 // Legacy storage could contain precise GPS coordinates. Never read it back.
 try { localStorage.removeItem('grattler-place'); } catch {}
@@ -115,19 +115,10 @@ function renderFigure() {
   const image=add(scene,'img');image.src=figure.src;image.alt='';image.className='character';
   image.addEventListener('error',()=>{scene.replaceChildren();add(scene,'span','Die Figur macht gerade Pause.','character-note');},{once:true});
 }
-function render() {
+// Keep the complete advice card stable for this page visit. Weather still refreshes.
+function renderAdvice() {
+  if (adviceRendered) return;
   const c = data.current;
-  $('place').textContent = place.name; $('region').textContent = place.region || '';
-  $('date').textContent = format(Date.now()/1000,{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toLocaleUpperCase('de');
-  $('temperature').textContent = rounded(c.temperature_2m);
-  const nowTags = classify({code:c.weather_code, feels:c.apparent_temperature, wind:c.wind_speed_10m,gusts:c.wind_gusts_10m,day:!!c.is_day});
-  $('condition').textContent = nowTags.includes('windig') && !nowTags.includes('gewitter') ? 'Windig. Halt dich fest.' : description(c.weather_code, !!c.is_day);
-  $('feels').textContent = `Gefühlt ${rounded(c.apparent_temperature)}° · ${finite(c.precipitation) ? c.precipitation.toLocaleString('de-DE') + ' mm Niederschlag' : 'Niederschlag unbekannt'}`;
-  $('wind').textContent = `${rounded(c.wind_speed_10m)} km/h`;
-  $('gusts').textContent = `${rounded(c.wind_gusts_10m)} km/h`;
-  $('range').textContent = `${rounded(data.daily.temperature_2m_min[0])}° / ${rounded(data.daily.temperature_2m_max[0])}°`;
-  $('weather-art').innerHTML = icon(c.weather_code,!!c.is_day);
-  $('updated').textContent = `Datenstand ${format(c.time,{hour:'2-digit',minute:'2-digit'})} Uhr`;
   const advice = recommendation(data, entries, `${place.latitude},${place.longitude}|${Math.random()}`, Date.now()/1000, lastSaying);
   const expired = Date.now()/1000 - c.time > 3*3600;
   if (!expired && advice.entry) {
@@ -146,6 +137,22 @@ function render() {
   $('source-text').textContent = provenance ? [provenance.sourceLabel,provenance.attribution,provenance.note].filter(Boolean).join(' · ') : 'Ein redaktioneller Wettertext aus unserer Spruchsammlung. Keine amtliche Handlungsempfehlung.';
   $('source-link').hidden = true;
   if (provenance?.sourceUrl) { try { const url=new URL(provenance.sourceUrl); if(url.protocol==='https:') { $('source-link').href=url.href; $('source-link').hidden=false; } } catch {} }
+  adviceRendered = !expired;
+}
+function render() {
+  const c = data.current;
+  $('place').textContent = place.name; $('region').textContent = place.region || '';
+  $('date').textContent = format(Date.now()/1000,{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toLocaleUpperCase('de');
+  $('temperature').textContent = rounded(c.temperature_2m);
+  const nowTags = classify({code:c.weather_code, feels:c.apparent_temperature, wind:c.wind_speed_10m,gusts:c.wind_gusts_10m,day:!!c.is_day});
+  $('condition').textContent = nowTags.includes('windig') && !nowTags.includes('gewitter') ? 'Windig. Halt dich fest.' : description(c.weather_code, !!c.is_day);
+  $('feels').textContent = `Gefühlt ${rounded(c.apparent_temperature)}° · ${finite(c.precipitation) ? c.precipitation.toLocaleString('de-DE') + ' mm Niederschlag' : 'Niederschlag unbekannt'}`;
+  $('wind').textContent = `${rounded(c.wind_speed_10m)} km/h`;
+  $('gusts').textContent = `${rounded(c.wind_gusts_10m)} km/h`;
+  $('range').textContent = `${rounded(data.daily.temperature_2m_min[0])}° / ${rounded(data.daily.temperature_2m_max[0])}°`;
+  $('weather-art').innerHTML = icon(c.weather_code,!!c.is_day);
+  $('updated').textContent = `Datenstand ${format(c.time,{hour:'2-digit',minute:'2-digit'})} Uhr`;
+  renderAdvice();
   $('hours').replaceChildren();
   const start = data.hourly.time.findIndex(t => t >= Date.now()/1000-1800);
   if (start < 0) add($('hours'),'p','Kein aktueller Stundenausblick verfügbar.','muted');
@@ -255,8 +262,10 @@ async function load(next = place) {
     for(const id of ['weather-art','hours','days'])$(id).replaceChildren();
     $('condition').textContent='Keine aktuellen Wetterdaten.';$('feels').textContent='Bitte erneut laden oder einen anderen Ort wählen.';
     $('updated').textContent='Kein aktueller Datenstand verfügbar.';
+    if (!adviceRendered) {
     $('quote').textContent='Ohne Wetterdaten keine großen Sprüche.';$('reason').textContent='Die Verbindung zum Wetterdienst klappt gerade nicht.';
     $('advice-period').textContent='WETTER FEHLT';$('source-text').textContent='';$('source-link').hidden=true;
+    }
     status('Wetterdienst gerade nicht erreichbar. Bitte erneut versuchen.',true);
   } finally{if(generation===request)$('refresh').disabled=false;}
 }
