@@ -1,0 +1,27 @@
+name: Spruch annehmen
+on:
+  issues:
+    types: [labeled]
+permissions:
+  contents: read
+concurrency:
+  group: suggestion-${{ github.event.issue.number }}
+  cancel-in-progress: false
+jobs:
+  propose:
+    if: github.event.label.name == 'angenommen' && !github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const { propose } = await import(`${process.env.GITHUB_WORKSPACE}/automation/issue-pr.mjs`);
+            await propose({ github, context });

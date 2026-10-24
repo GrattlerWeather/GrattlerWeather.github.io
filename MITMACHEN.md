@@ -39,3 +39,5 @@ GitHub-Issues und das GitHub-Profil der einreichenden Person sind öffentlich si
 Vorschläge werden redaktionell auf Inhalt, passende Bedingungen, Dubletten und Herkunft geprüft. Eine Einreichung wird nicht automatisch auf der Website veröffentlicht. Übernahme, mögliche Bearbeitung und Veröffentlichung erfolgen durch die Projektpflege. Unsichere Zuschreibungen werden nicht zu verifizierten Zitaten erklärt.
 
 Die Inhaltsdateien sind [content/sprueche.json](content/sprueche.json) und [content/ticker.json](content/ticker.json). Die lesbare Übersicht wird beim Release-Build daraus neu erzeugt.
+
+Die Projektpflege kann geprüfte Issues mit **angenommen** markieren. GitHub erstellt dann einen Pull Request zur Übernahme; erst das manuelle Zusammenführen veröffentlicht den Text. Die JSON-Dateien enthalten den aktuellen Stand, die lesbare Übersicht den Stand des letzten lokalen Release-Builds.
