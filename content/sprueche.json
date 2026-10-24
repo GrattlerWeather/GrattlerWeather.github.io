@@ -1,0 +1,311 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "guter-tag-nichts-tun",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": []
+      },
+      "priority": 0,
+      "text": "Heute ist ein guter Tag um nichts zu tun.",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert"
+      }
+    },
+    {
+      "id": "dach-stickig-ueber-25",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": [
+          "hagel",
+          "gewitter",
+          "starke-boeen"
+        ],
+        "currentTemperatureAbove": 25
+      },
+      "priority": 50,
+      "text": "Bei dem Wetter wirds unterm Dach stickig.",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Nur bei aktueller Außentemperatur strikt über 25 °C auswählbar. Keine Innenraumtemperaturmessung."
+      }
+    },
+    {
+      "id": "werbezettel-haid-sturm",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "windig"
+        ],
+        "any": [],
+        "none": [
+          "hagel",
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 40,
+      "text": "Wer Haid sät, wird Sturm ernten.",
+      "figureId": "zeigefinger",
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Bereitgestellter Werbezettel",
+        "note": "Schlagzeile vom Zettel übernommen; Großschreibung und Satzzeichen für Fließtext angepasst. Keine Zuschreibung als Originalaussage einer abgebildeten Person."
+      }
+    },
+    {
+      "id": "hagel-luegen-anzeigen-balkenbieg",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "hagel"
+        ],
+        "any": [],
+        "none": []
+      },
+      "priority": 100,
+      "text": "heute hagelts lügen und anzeigen wie ein Balkenbieg",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Wortlaut unverändert übernommen. Keine Zuschreibung als verifiziertes Originalzitat einer realen Person."
+      }
+    },
+    {
+      "id": "viper-regen-sperrmuellcouch",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "regen"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 45,
+      "text": "Bei dem Regen wird die Sperrmüllcouch zum Logenplatz.",
+      "figureId": null,
+      "provenance": {
+        "kind": "editorial-adaptation",
+        "sourcePhrase": "Sperrmüllcouch",
+        "sourceUrl": "https://www.dailymotion.com/video/x9ivgp4",
+        "sourceLabel": "Kanal Mongomedial, Reaktionsvideo",
+        "timestamp": "06:59",
+        "attribution": "Im Transkript Leon Elektronik zugeschrieben; Originalaussage von Leon nicht separat geprüft.",
+        "note": "Nur der Begriff stammt aus der Fundstelle. Der vollständige Wettersatz ist ein neuer redaktioneller Text für die App, kein Zitat von Gerd, Leon oder Mongomedial."
+      }
+    },
+    {
+      "id": "viper-regen-es-reicht",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "regen"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 45,
+      "text": "ES IST GENUG JETZT, ES REICHT JETZT",
+      "figureId": null,
+      "provenance": {
+        "kind": "third-party-phrase",
+        "sourcePhrase": "ES IST GENUG JETZT, ES REICHT JETZT",
+        "sourceUrl": "https://www.seaart.ai/de/models/detail/4df452e85d54068d71e3e7d78aee1c8f",
+        "sourceLabel": "SeaArt, Modellbeschreibung Grattler Diffusion / Viper",
+        "attribution": "Wortlaut aus einer Beschreibung von Dritten; ursprünglicher Sprecher und Urheber nicht verifiziert.",
+        "note": "Als Fundstück über Viper aufgenommen. Die Zuordnung zu Regen ist eine redaktionelle Entscheidung für die App, kein belegter Wetterbezug des Originals."
+      }
+    },
+    {
+      "id": "wind-anker",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "windig"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 40,
+      "text": "Halbe Hemden sollten für den Wocheneinkauf einen Anker mitnehmen.",
+      "figureId": null
+    },
+    {
+      "id": "kalt-zahnfleisch",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "kalt"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 30,
+      "text": "Schal um den Mund – es könnte am zahnlosen Zahnfleisch ziepen.",
+      "figureId": null
+    },
+    {
+      "id": "kalt-wind-anker-schal",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "kalt",
+          "windig"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 60,
+      "text": "Schal ums Maul und Anker in die Tasche. Heute zieht's an beiden Enden.",
+      "figureId": null
+    },
+    {
+      "id": "regen-frisur",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "regen"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 45,
+      "text": "Die Frisur hält heute nur, wenn du sie daheim lässt.",
+      "figureId": null
+    },
+    {
+      "id": "regen-wind-schirm",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "regen",
+          "windig"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen"
+        ]
+      },
+      "priority": 65,
+      "text": "Der Schirm will heute auswandern. Nimm eine Jacke, die dir treu bleibt.",
+      "figureId": null
+    },
+    {
+      "id": "hitze-schatten",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "heiss"
+        ],
+        "any": [],
+        "none": [
+          "gewitter",
+          "starke-boeen",
+          "regen"
+        ]
+      },
+      "priority": 40,
+      "text": "Heute schwitzt sogar der Schatten. Such dir einen und bleib ihm treu.",
+      "figureId": null
+    },
+    {
+      "id": "gewitter-drinnen",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "gewitter"
+        ],
+        "any": [],
+        "none": []
+      },
+      "priority": 100,
+      "text": "Heute darfst du vom Sofa aus behaupten, du wärst sonst rausgegangen.",
+      "figureId": null
+    },
+    {
+      "id": "starke-boeen-drinnen",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [
+          "starke-boeen"
+        ],
+        "any": [],
+        "none": [
+          "gewitter"
+        ]
+      },
+      "priority": 90,
+      "text": "Heute hat selbst der Gartenstuhl Reisepläne. Du bleibst besser drin.",
+      "figureId": null
+    },
+    {
+      "id": "tag-neutral",
+      "enabled": true,
+      "period": "remaining-day",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": []
+      },
+      "priority": 0,
+      "text": "Erst aus dem Fenster schauen. Dann große Pläne machen.",
+      "figureId": null
+    },
+    {
+      "id": "nacht-neutral",
+      "enabled": true,
+      "period": "tonight",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": []
+      },
+      "priority": 0,
+      "text": "Die Nacht hat geöffnet. Die großen Pläne können bis morgen warten.",
+      "figureId": null
+    }
+  ]
+}

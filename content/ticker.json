@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "hundert-anzeigen",
+      "enabled": true,
+      "text": "Heute hagelts 100 Anzeigen. Für morgen ist bereits ein Nachschub an Aktenordnern angekündigt.",
+      "provenance": {
+        "kind": "editorial-satire",
+        "note": "Erfundene Scherzmeldung auf Basis des Nutzerbeitrags."
+      }
+    },
+    {
+      "id": "regen-anzeige",
+      "enabled": true,
+      "text": "Regen ohne Einwilligung: Die erste Pfütze wurde vorsorglich angezeigt.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "paragraphen-stretching",
+      "enabled": true,
+      "text": "Frühsport im Grattlerland: erst die Beine strecken, dann die Paragraphen dehnen.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "recht-gummiband",
+      "enabled": true,
+      "text": "Das Recht ist kein Gummiband. Im Grattlerland läuft trotzdem der Belastungstest.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "wolke-vorladung",
+      "enabled": true,
+      "text": "Wolke zieht schief vorbei. Vorladung ist raus.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "widerspruch-thermometer",
+      "enabled": true,
+      "text": "Thermometer zeigt fünf Grad. Gegen diese Darstellung wurde Widerspruch eingelegt.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "anzeige-anzeige",
+      "enabled": true,
+      "text": "Die Anzeige wurde angezeigt. Das Aktenzeichen braucht inzwischen ein eigenes Aktenzeichen.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "spass-wettquote",
+      "enabled": true,
+      "text": "Spaß-Wettquote Leon gegen Gerd: Leon 3:1, Gerd 3:1, der Papierkram 1:100. Keine Einsätze – nur große Worte.",
+      "provenance": {
+        "kind": "editorial-satire",
+        "note": "Frei erfundene Spaßquoten; kein reales Wettangebot und keine tatsächliche Prognose."
+      }
+    },
+    {
+      "id": "unentschieden",
+      "enabled": true,
+      "text": "Leon oder Gerd – wer gewinnt? Zwischenstand: unentschieden. Der Drucker führt nach Punkten.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "kaupause",
+      "enabled": true,
+      "text": "Menü des Tages: Buchstabensuppe. Bissige Kommentare werden separat serviert.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "karaoke",
+      "enabled": true,
+      "text": "Gerdiboys Karaoke-Prognose: vereinzelte Töne, örtlich starke Abweichungen.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "elektronix-frieden",
+      "enabled": true,
+      "text": "Im Grattlerelektronix-Krieg herrscht Waffenruhe: Beide Seiten suchen die Fernbedienung.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "wetterbeschwerde",
+      "enabled": true,
+      "text": "Beschwerde gegen den Wind eingereicht. Er soll sich endlich in eine andere Richtung drehen.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "geruechtekueche",
+      "enabled": true,
+      "text": "Die Gerüchteküche serviert aufgewärmten Quatsch. Heute zum Lutschen, nicht zum Kauen.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "karaoke-regenpause",
+      "enabled": true,
+      "text": "Karaoke unterm Dach: Das Mikrofon beantragt vorsorglich eine Regenpause.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "zahnluecke",
+      "enabled": true,
+      "text": "Zugluft zwischen den Zähnen? Heute ist die Lücke der größte Wetterfühler.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    },
+    {
+      "id": "recht-haben",
+      "enabled": true,
+      "text": "Recht haben bleibt trocken. Für alle anderen zieht eine kleine Diskussion auf.",
+      "provenance": {
+        "kind": "editorial-satire"
+      }
+    }
+  ]
+}

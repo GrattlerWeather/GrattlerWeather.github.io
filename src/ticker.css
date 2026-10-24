@@ -1,0 +1,13 @@
+.satire-ticker{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);height:30px;min-height:30px;font-size:10px;color:var(--muted);overflow:hidden}
+.ticker-label{flex:none;font-size:8px;letter-spacing:1.2px;font-weight:700;color:var(--red);white-space:nowrap}
+.ticker-window{flex:1;min-width:0;height:30px;overflow:hidden;scrollbar-width:none;mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent)}
+.ticker-window::-webkit-scrollbar{display:none}
+.ticker-track{display:flex;width:max-content;animation:ticker-scroll var(--ticker-duration,100s) linear infinite;will-change:transform}
+.ticker-copy{display:flex;align-items:center;white-space:nowrap}
+.ticker-item{padding-right:36px;line-height:30px}
+.ticker-item::before{content:'✦';padding-right:16px;color:var(--red);font-size:9px}
+.ticker-pause{flex:none;border:0;background:none;padding:7px 4px;color:var(--muted);font-size:10px;line-height:1}
+.satire-ticker.is-paused .ticker-track{animation-play-state:paused}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:740px){.satire-ticker{gap:8px}.ticker-label{font-size:7px;letter-spacing:.8px}.ticker-item{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.satire-ticker:not(.motion-enabled) .ticker-track{animation:none;transform:none}.ticker-window{overflow-x:auto}.satire-ticker:not(.motion-enabled) .ticker-copy[aria-hidden=true]{display:none}}

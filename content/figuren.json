@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "defaultFigureId": "wetterexperte",
+  "figures": [
+    {
+      "id": "wetterexperte",
+      "name": "Der Wetterexperte",
+      "src": "./public/images/figuren/wetterexperte-comic-v1.png",
+      "alt": "Gezeichnete Figur nach der bereitgestellten Vorlage: schlanker Mann im violetten Kapuzenpullover und grauer Jogginghose."
+    },
+    {
+      "id": "zeigefinger",
+      "name": "Der Zeigefinger",
+      "src": "./public/images/figuren/zeigefinger-comic-v1.png",
+      "alt": "Gezeichnete Figur nach der bereitgestellten Vorlage: kräftiger Mann im grauen ärmellosen Shirt zeigt mit dem Finger nach vorn."
+    },
+    {
+      "id": "gelbes-shirt",
+      "name": "Das gelbe Shirt",
+      "src": "./public/images/figuren/gelbes-shirt-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Das gelbe Shirt“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "couch-portrait",
+      "name": "Auf der Couch",
+      "src": "./public/images/figuren/couch-portrait-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Auf der Couch“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "unglaeubig",
+      "name": "Der ungläubige Blick",
+      "src": "./public/images/figuren/unglaeubig-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Der ungläubige Blick“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "vogel",
+      "name": "Der Wettervogel",
+      "src": "./public/images/figuren/vogel-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Der Wettervogel“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "lange-nase",
+      "name": "Die lange Nase",
+      "src": "./public/images/figuren/lange-nase-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Die lange Nase“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "bank-grau",
+      "name": "Auf der Parkbank",
+      "src": "./public/images/figuren/bank-grau-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Auf der Parkbank“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "bank-schwarz",
+      "name": "Die Bank am See",
+      "src": "./public/images/figuren/bank-schwarz-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Die Bank am See“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "blitz",
+      "name": "Der Blitzexperte",
+      "src": "./public/images/figuren/blitz-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Der Blitzexperte“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "zylinder",
+      "name": "Mit Zylinder",
+      "src": "./public/images/figuren/zylinder-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Mit Zylinder“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "duo",
+      "name": "Das Wetterduo",
+      "src": "./public/images/figuren/duo-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Das Wetterduo“ nach der bereitgestellten Vorlage."
+    },
+    {
+      "id": "rote-jacke",
+      "name": "Die rote Jacke",
+      "src": "./public/images/figuren/rote-jacke-comic-v1.png",
+      "alt": "Freigestellte Comicillustration „Die rote Jacke“ nach der bereitgestellten Vorlage."
+    }
+  ]
+}

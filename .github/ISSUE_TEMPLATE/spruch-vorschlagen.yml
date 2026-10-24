@@ -1,0 +1,62 @@
+name: Spruch oder Tickermeldung vorschlagen
+description: Einen Text für den Grattlerrat oder den Satire-Liveticker einreichen.
+title: "Spruchvorschlag: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Einen guten Spruch auf Lager? Her damit!
+        Dein Vorschlag ist öffentlich sichtbar und wird vor der Übernahme geprüft.
+        Bitte keine privaten Daten eintragen. Quellen helfen uns bei der richtigen Zuschreibung.
+  - type: dropdown
+    id: vorschlagsart
+    attributes:
+      label: Vorschlagsart
+      options:
+        - Grattlerrat
+        - Liveticker
+    validations:
+      required: true
+  - type: textarea
+    id: spruch
+    attributes:
+      label: Spruch
+      description: Dein vollständiger Spruch oder deine kurze satirische Tickermeldung (maximal 280 Zeichen).
+      placeholder: Heute hagelts …
+    validations:
+      required: true
+  - type: dropdown
+    id: wetter
+    attributes:
+      label: Wetterlage
+      description: Nur für Grattlerrat ausfüllen. Mehrere Bedingungen müssen gemeinsam auftreten. Für Liveticker leer lassen.
+      multiple: true
+      options:
+        - Noch offen
+        - Sonne
+        - Regen
+        - Schnee
+        - Hagel
+        - Gewitter
+        - Wind
+        - Starke Böen
+        - Kälte
+        - Frost
+        - Hitze
+        - Nebel
+    validations:
+      required: false
+  - type: textarea
+    id: quelle
+    attributes:
+      label: Quelle und Einordnung
+      description: Selbst ausgedacht oder irgendwo gehört? Bei Zitaten möglichst Link, Sprecher und Zeitstempel angeben. Dieses Feld wird als ungeprüfte Angabe übernommen.
+    validations:
+      required: false
+  - type: checkboxes
+    id: nutzung
+    attributes:
+      label: Verwendung
+      options:
+        - label: Mein eigener Text darf in Grattlerwetter verwendet und bearbeitet werden; bei übernommenen Texten habe ich die Herkunft angegeben.
+          required: true
