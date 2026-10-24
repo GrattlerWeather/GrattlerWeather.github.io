@@ -138,6 +138,17 @@
       "provenance": {
         "kind": "editorial-satire"
       }
+    },
+    {
+      "id": "community-grattlerweather-grattlerweather.github.io-1",
+      "enabled": true,
+      "text": "Knasttattoos mit Rechtschreibfehlern sind in Mode",
+      "provenance": {
+        "kind": "community-submission",
+        "sourceUrl": "https://github.com/GrattlerWeather/GrattlerWeather.github.io/issues/1",
+        "sourceLabel": "Community-Vorschlag über GitHub Issues",
+        "note": "Redaktionell über GitHub angenommen. Quellen- und Sprecherangaben der Einreichung sind keine unabhängig verifizierten Originalzitate."
+      }
     }
   ]
 }
