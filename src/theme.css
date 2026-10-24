@@ -59,6 +59,7 @@
 .footer-contact { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
 .footer-contact a { color: var(--ink); font-size: 11px; line-height: 1.6; text-underline-offset: 3px; }
 .footer-contact a:hover { color: var(--red); }
+.link-arrow { display: inline-block; width: .85em; height: .85em; vertical-align: -.05em; flex: none; }
 footer { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: end; }
 footer p { align-self: center; }
 @media (min-width: 741px) {
