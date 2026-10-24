@@ -5,7 +5,9 @@ let place = defaults, entries = [], figures = [], randomFigure, data, request = 
 try { const saved = JSON.parse(localStorage.getItem('grattler-place')); if (saved && finite(saved.latitude) && finite(saved.longitude) && typeof saved.name === 'string') place = saved; } catch {}
 const status = (text, error = false) => { $('status').textContent = text; $('status').classList.toggle('error',error); };
 const format = (time, options = {}) => new Intl.DateTimeFormat('de-DE', { timeZone:data?.timezone || 'Europe/Berlin', ...options }).format(new Date(time*1000));
-const cacheKey = p => `grattler-weather-v1:${p.latitude.toFixed(3)},${p.longitude.toFixed(3)}`;
+try {
+  for(const key of Object.keys(localStorage))if(key.startsWith('grattler-weather-'))localStorage.removeItem(key);
+} catch {}
 function icon(code, day = true) {
   const sun = '<circle cx="32" cy="30" r="12" fill="currentColor" fill-opacity=".3"/><path d="M32 8v5m0 34v5M10 30h5m34 0h5M16 14l4 4m24 24 4 4m0-32-4 4M20 42l-4 4"/>';
   const cloud = '<path d="M16 42a10 10 0 0 1-1-20 15 15 0 0 1 29-1 11 11 0 1 1 4 21Z" fill="var(--paper)"/>';
@@ -51,7 +53,7 @@ function renderFigure(preferredId) {
   const image=add(scene,'img');image.src=figure.src;image.alt=figure.alt;image.className=`character character-${figure.id}`;
   image.addEventListener('error',()=>{scene.replaceChildren();add(scene,'span','Die Figur macht gerade Pause.','character-note');},{once:true});
 }
-function render(stale = false) {
+function render() {
   const c = data.current;
   $('place').textContent = place.name; $('region').textContent = place.region || '';
   $('date').textContent = format(Date.now()/1000,{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toLocaleUpperCase('de');
@@ -63,7 +65,7 @@ function render(stale = false) {
   $('gusts').textContent = `${rounded(c.wind_gusts_10m)} km/h`;
   $('range').textContent = `${rounded(data.daily.temperature_2m_min[0])}° / ${rounded(data.daily.temperature_2m_max[0])}°`;
   $('weather-art').innerHTML = icon(c.weather_code,!!c.is_day);
-  $('updated').textContent = `${stale ? 'Gespeicherte Daten · ' : ''}Datenstand ${format(c.time,{hour:'2-digit',minute:'2-digit'})} Uhr`;
+  $('updated').textContent = `Datenstand ${format(c.time,{hour:'2-digit',minute:'2-digit'})} Uhr`;
   const advice = recommendation(data, entries, `${place.latitude},${place.longitude}`);
   const expired = Date.now()/1000 - c.time > 3*3600;
   $('quote').textContent = expired ? 'Der Wetterzettel ist von gestern. Na ja, fast.' : advice.entry?.text || 'Erst aus dem Fenster schauen. Dann große Pläne machen.';
@@ -96,25 +98,28 @@ function render(stale = false) {
     add(card,'p',rounded(data.daily.precipitation_probability_max[i])+' % Niederschlagsrisiko');
   });
 }
-async function load(next = place, force = false) {
-  const generation=++request; controller?.abort(); controller=new AbortController();
+async function load(next = place) {
+  const generation=++request; controller?.abort(); const activeController=new AbortController();controller=activeController;
   status(`Wetter für ${next.name} wird geholt …`); $('refresh').disabled=true;
-  let cache;
-  try { cache=JSON.parse(localStorage.getItem(cacheKey(next))); if(cache) validateWeather(cache.data); } catch { cache=null; }
-  const apply = (value, stale) => { data=value; place=next; try{localStorage.setItem('grattler-place',JSON.stringify(place));}catch{} render(stale); };
   try {
-    if (!force && cache && Date.now()-cache.saved<15*60*1000) {apply(cache.data,false);status('Wetterdaten aus dem lokalen Zwischenspeicher.');return;}
     const query=new URLSearchParams({latitude:next.latitude,longitude:next.longitude,current:'temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_gusts_10m,precipitation,is_day',hourly:'temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_gusts_10m,rain,is_day,precipitation_probability',daily:'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',timezone:'auto',timeformat:'unixtime',forecast_days:'5'});
-    const timer=setTimeout(()=>controller.abort(),15000);
-    let response; try { response=await fetch(`https://api.open-meteo.com/v1/forecast?${query}`,{signal:controller.signal}); } finally{clearTimeout(timer);}
+    const timer=setTimeout(()=>activeController.abort(),15000);
+    let response; try { response=await fetch(`https://api.open-meteo.com/v1/forecast?${query}`,{signal:activeController.signal,cache:'no-store'}); } finally{clearTimeout(timer);}
     if(!response.ok)throw new Error('Wetterabruf fehlgeschlagen');
     const result=validateWeather(await response.json()); if(generation!==request)return;
-    apply(result,false); try{localStorage.setItem(cacheKey(next),JSON.stringify({saved:Date.now(),data:result}));}catch{}
+    data=result;place=next;try{localStorage.setItem('grattler-place',JSON.stringify(place));}catch{}render();
     status('Frisch abgerufen. Die Lebenshilfe gibt’s gratis dazu.');
   } catch(error) {
     if(generation!==request)return;
-    if(cache){apply(cache.data,true);status('Wetterdienst gerade nicht erreichbar. Du siehst gespeicherte Daten mit Zeitstempel.',true);}
-    else {status('Wetterdaten gerade nicht verfügbar. Bitte erneut laden oder einen anderen Ort wählen.',true); if(!data){$('quote').textContent='Ohne Wetterdaten keine großen Sprüche.'; $('reason').textContent='Die Verbindung zum Wetterdienst klappt gerade nicht.';}}
+    data=undefined;place=next;
+    $('place').textContent=next.name;$('region').textContent=next.region || '';
+    for(const id of ['temperature','wind','gusts','range'])$(id).textContent='—';
+    for(const id of ['weather-art','hours','days'])$(id).replaceChildren();
+    $('condition').textContent='Keine aktuellen Wetterdaten.';$('feels').textContent='Bitte erneut laden oder einen anderen Ort wählen.';
+    $('updated').textContent='Kein aktueller Datenstand verfügbar.';
+    $('quote').textContent='Ohne Wetterdaten keine großen Sprüche.';$('reason').textContent='Die Verbindung zum Wetterdienst klappt gerade nicht.';
+    $('advice-period').textContent='WETTER FEHLT';$('source-text').textContent='';$('source-link').hidden=true;
+    status('Wetterdienst gerade nicht erreichbar. Bitte erneut versuchen.',true);
   } finally{if(generation===request)$('refresh').disabled=false;}
 }
 $('search-toggle').addEventListener('click',()=>{const opened=$('search-panel').hidden;$('search-panel').hidden=!opened;$('search-toggle').setAttribute('aria-expanded',String(opened));if(opened)$('search').focus();});
@@ -133,7 +138,7 @@ $('locate').addEventListener('click',()=>{
   status('Warte auf deine Standortfreigabe …');
   navigator.geolocation.getCurrentPosition(position=>load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude}),()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
 });
-$('refresh').addEventListener('click',()=>load(place,true));
+$('refresh').addEventListener('click',()=>load());
 $('suggest').addEventListener('click',()=>$('suggest-dialog').showModal());$('close-dialog').addEventListener('click',()=>$('suggest-dialog').close());
 $('suggest-kind').addEventListener('change',()=>{const ticker=$('suggest-kind').value==='ticker';$('suggest-weather').hidden=ticker;$('suggest-weather').disabled=ticker;$('suggest-weather-label').hidden=ticker;});
 $('suggest-form').addEventListener('submit',event=>{
