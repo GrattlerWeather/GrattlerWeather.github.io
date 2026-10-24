@@ -4,7 +4,29 @@ const defaults = { name:'Schönsee', region:'Oberpfalz · Deutschland', latitude
 let place = defaults, entries = [], figures = [], randomFigure, data, request = 0, controller, searchController;
 let lastSaying;
 try { lastSaying = localStorage.getItem('grattler-last-saying'); } catch {}
-try { const saved = JSON.parse(localStorage.getItem('grattler-place')); if (saved && finite(saved.latitude) && finite(saved.longitude) && typeof saved.name === 'string') place = saved; } catch {}
+// Legacy storage could contain precise GPS coordinates. Never read it back.
+try { localStorage.removeItem('grattler-place'); } catch {}
+async function restoreCity() {
+  let id;
+  try { id = localStorage.getItem('grattler-city-id'); } catch {}
+  if (!/^[1-9]\d{0,11}$/.test(id || '')) return defaults;
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), 10000);
+  try {
+    const response = await fetch('https://geocoding-api.open-meteo.com/v1/get?' + new URLSearchParams({ id, language: 'de' }), { signal: abort.signal, cache: 'no-store' });
+    if (!response.ok) throw new Error('Ort nicht verfügbar');
+    const city = await response.json();
+    if (city.id !== Number(id) || typeof city.name !== 'string' || !finite(city.latitude) || !finite(city.longitude)) throw new Error('Ungültiger Ort');
+    return { name: city.name, region: [city.admin1, city.country].filter(Boolean).join(' · '), latitude: city.latitude, longitude: city.longitude };
+  } catch { return defaults; } finally { clearTimeout(timer); }
+}
+function selectCity(city) {
+  try {
+    if (Number.isSafeInteger(city.id) && city.id > 0) localStorage.setItem('grattler-city-id', String(city.id));
+    else localStorage.removeItem('grattler-city-id');
+  } catch {}
+  return load({ name: city.name, region: [city.admin1, city.country].filter(Boolean).join(' · '), latitude: city.latitude, longitude: city.longitude });
+}
 const status = (text, error = false) => { $('status').textContent = text; $('status').classList.toggle('error',error); };
 const format = (time, options = {}) => new Intl.DateTimeFormat('de-DE', { timeZone:data?.timezone || 'Europe/Berlin', ...options }).format(new Date(time*1000));
 try {
@@ -113,7 +135,7 @@ async function load(next = place) {
     let response; try { response=await fetch(`https://api.open-meteo.com/v1/forecast?${query}`,{signal:activeController.signal,cache:'no-store'}); } finally{clearTimeout(timer);}
     if(!response.ok)throw new Error('Wetterabruf fehlgeschlagen');
     const result=validateWeather(await response.json()); if(generation!==request)return;
-    data=result;place=next;try{localStorage.setItem('grattler-place',JSON.stringify(place));}catch{}render();
+    data=result;place=next;render();
     status('Frisch abgerufen. Die Lebenshilfe gibt’s gratis dazu.');
   } catch(error) {
     if(generation!==request)return;
@@ -136,13 +158,13 @@ $('search-form').addEventListener('submit',async event=>{
     const response=await fetch(`https://geocoding-api.open-meteo.com/v1/search?${new URLSearchParams({name:$('search').value.trim(),count:'6',language:'de',format:'json'})}`,{signal});
     if(!response.ok)throw new Error();const result=await response.json();if(signal.aborted)return;$('search-results').replaceChildren();
     if(!result.results?.length)$('search-results').textContent='Kein Ort gefunden. Versuch einen anderen Namen.';
-    for(const item of result.results || []){const region=[item.admin1,item.country].filter(Boolean).join(' · ');const button=add($('search-results'),'button',`${item.name} · ${region}`,'result');button.type='button';button.addEventListener('click',()=>{$('search-panel').hidden=true;$('search-toggle').setAttribute('aria-expanded','false');load({name:item.name,region,latitude:item.latitude,longitude:item.longitude});});}
+    for(const item of result.results || []){const region=[item.admin1,item.country].filter(Boolean).join(' · ');const button=add($('search-results'),'button',`${item.name} · ${region}`,'result');button.type='button';button.addEventListener('click',()=>{$('search-panel').hidden=true;$('search-toggle').setAttribute('aria-expanded','false');selectCity(item);});}
   }catch(error){if(error.name!=='AbortError')$('search-results').textContent='Ortssuche gerade nicht erreichbar. Bitte später erneut versuchen.';}
 });
 $('locate').addEventListener('click',()=>{
   if(!navigator.geolocation){status('Standort ist hier nicht verfügbar. Bitte die Ortssuche nutzen.',true);return;}
   status('Warte auf deine Standortfreigabe …');
-  navigator.geolocation.getCurrentPosition(position=>load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude}),()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
+  navigator.geolocation.getCurrentPosition(position=>{try{localStorage.removeItem('grattler-city-id');}catch{}return load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude});},()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
 });
 $('refresh').addEventListener('click',()=>load());
 $('suggest').addEventListener('click',()=>{$('suggest-dialog').showModal();$('suggest-heading').focus({preventScroll:true});});$('close-dialog').addEventListener('click',()=>$('suggest-dialog').close());
@@ -164,5 +186,7 @@ try {
   const [response,figureResponse]=await Promise.all([fetch('./content/sprueche.json'),fetch('./content/figuren.json')]);
   if(!response.ok)throw new Error();entries=(await response.json()).entries;
   if(figureResponse.ok){const catalog=await figureResponse.json();figures=catalog.figures;randomFigure=figures[Math.floor(Math.random()*figures.length)];}
-  await load();
+  const generation=request;
+  const initial=await restoreCity();
+  if(generation===request)await load(initial);
 }catch{status('Die Spruchsammlung konnte nicht geladen werden. Bitte die Seite neu laden.',true);}
