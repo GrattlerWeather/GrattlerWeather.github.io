@@ -31,19 +31,13 @@ async function loadTicker() {
     }
     track.style.setProperty('--ticker-duration',`${Math.max(40,texts.reduce((sum,e)=>sum+e.text.length,0)*.15)}s`);
     let savedMotion;try{savedMotion=localStorage.getItem('grattler-ticker-motion');}catch{}
-    if(savedMotion==='running'||savedMotion==='paused'){
-      $('satire-ticker').classList.add('motion-enabled');
-      const paused=savedMotion==='paused';$('satire-ticker').classList.toggle('is-paused',paused);
-      $('ticker-pause').setAttribute('aria-pressed',String(paused));$('ticker-pause').textContent=paused?'▶':'Ⅱ';$('ticker-pause').setAttribute('aria-label',paused?'Ticker fortsetzen':'Ticker anhalten');
-    }else if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('ticker-pause').textContent='▶';$('ticker-pause').setAttribute('aria-label','Ticker starten');}
+    $('satire-ticker').classList.add('motion-enabled');
+    const paused=savedMotion==='paused';$('satire-ticker').classList.toggle('is-paused',paused);
+    $('ticker-pause').setAttribute('aria-pressed',String(paused));$('ticker-pause').textContent=paused?'▶':'Ⅱ';$('ticker-pause').setAttribute('aria-label',paused?'Ticker fortsetzen':'Ticker anhalten');
     $('satire-ticker').hidden=false;
   } catch { $('satire-ticker').hidden=true; }
 }
 $('ticker-pause').addEventListener('click',()=>{
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches&&!$('satire-ticker').classList.contains('motion-enabled')){
-    $('satire-ticker').classList.add('motion-enabled');$('ticker-pause').textContent='Ⅱ';$('ticker-pause').setAttribute('aria-label','Ticker anhalten');
-    try{localStorage.setItem('grattler-ticker-motion','running');}catch{}return;
-  }
   const paused=$('satire-ticker').classList.toggle('is-paused');
   $('ticker-pause').setAttribute('aria-pressed',String(paused));$('ticker-pause').setAttribute('aria-label',paused?'Ticker fortsetzen':'Ticker anhalten');$('ticker-pause').textContent=paused?'▶':'Ⅱ';
   try{localStorage.setItem('grattler-ticker-motion',paused?'paused':'running');}catch{}
@@ -146,7 +140,7 @@ $('suggest-form').addEventListener('submit',event=>{
   event.preventDefault();
   const kind=$('suggest-kind').value, text=$('suggest-text').value.trim();
   if(!text)return;
-  const url=new URL('https://github.com/GrattlerWeather/GrattlerWeather/issues/new');
+  const url=new URL('https://github.com/GrattlerWeather/GrattlerWeather.github.io/issues/new');
   url.searchParams.set('template','spruch-vorschlagen.yml');
   url.searchParams.set('vorschlagsart',kind==='ticker'?'Liveticker':'Grattlerrat');
   url.searchParams.set('spruch',text);
