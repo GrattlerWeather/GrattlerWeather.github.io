@@ -28,6 +28,7 @@ jobs:
           mkdir _site
           cp index.html .nojekyll _site/
           cp -R src content public _site/
+          node src/figure-catalog.mjs _site > _site/content/figuren.json
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

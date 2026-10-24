@@ -84,12 +84,12 @@ $('ticker-pause').addEventListener('click',()=>{
   try{localStorage.setItem('grattler-ticker-motion',paused?'paused':'running');}catch{}
 });
 loadTicker();
-function renderFigure(preferredId) {
+function renderFigure() {
   const scene=document.querySelector('.scene');
-  const figure=figures.find(f=>f.id===preferredId) || randomFigure;
+  const figure=randomFigure;
   if(!figure)return;
   scene.replaceChildren();scene.removeAttribute('aria-hidden');scene.classList.add('character-scene');
-  const image=add(scene,'img');image.src=figure.src;image.alt=figure.alt;image.className=`character character-${figure.id}`;
+  const image=add(scene,'img');image.src=figure.src;image.alt='';image.className='character';
   image.addEventListener('error',()=>{scene.replaceChildren();add(scene,'span','Die Figur macht gerade Pause.','character-note');},{once:true});
 }
 function render() {
@@ -119,7 +119,7 @@ function render() {
   $('reason').textContent = expired ? 'Für eine aktuelle Empfehlung bitte neue Wetterdaten laden.' : `Für ${advice.night ? 'die Nacht' : 'die verbleibende Tageszeit'}${relevant.length ? ': '+relevant.map(t=>names[t] || t).join(' und ') : ' – die Lage bleibt überschaubar'}.`;
   if(!expired && advice.entry?.when.currentTemperatureAbove !== undefined) $('reason').textContent=`Aktuell ${c.temperature_2m.toLocaleString('de-DE')} °C draußen.`;
   const provenance = !expired && advice.entry?.provenance;
-  renderFigure(advice.entry?.figureId);
+  renderFigure();
   $('source-text').textContent = provenance ? [provenance.sourceLabel,provenance.attribution,provenance.note].filter(Boolean).join(' · ') : 'Ein redaktioneller Wettertext aus unserer Spruchsammlung. Keine amtliche Handlungsempfehlung.';
   $('source-link').hidden = true;
   if (provenance?.sourceUrl) { try { const url=new URL(provenance.sourceUrl); if(url.protocol==='https:') { $('source-link').href=url.href; $('source-link').hidden=false; } } catch {} }
