@@ -6,7 +6,7 @@ Diese Übersicht wird bei jedem Release-Build automatisch aus den Inhaltsdateien
 
 ## Sprüche des Tages · Grattlerrat
 
-17 Einträge. Die vollständigen Quellenangaben und Zuschreibungen stehen in [content/sprueche.json](content/sprueche.json). Nutzerbeitrag, redaktionelle Bearbeitung und Fundstück sind unterschiedliche Einordnungen; ein Fundstück ist kein verifiziertes Originalzitat.
+18 Einträge. Die vollständigen Quellenangaben und Zuschreibungen stehen in [content/sprueche.json](content/sprueche.json). Nutzerbeitrag, redaktionelle Bearbeitung und Fundstück sind unterschiedliche Einordnungen; ein Fundstück ist kein verifiziertes Originalzitat.
 
 | Spruch | Wetterbedingung | Zeitraum | Priorität | Status | Einordnung |
 | --- | --- | --- | ---: | --- | --- |
@@ -26,7 +26,8 @@ Diese Übersicht wird bei jedem Release-Build automatisch aus den Inhaltsdateien
 | Heute darfst du vom Sofa aus behaupten, du wärst sonst rausgegangen. | Gemeinsam: Gewitter | Restlicher Tag | 100 | Aktiv | Keine Herkunft hinterlegt |
 | Amtliche Warnung für halbe Hemden: Verwehungsgefahr. Du bleibst besser drin. | Gemeinsam: Starke Böen; Nicht bei: Gewitter | Restlicher Tag | 90 | Aktiv | Nutzerbeitrag |
 | Erst aus dem Fenster schauen. Dann große Pläne machen. | Ohne besondere Wetterbedingung (Rückfalltext) | Restlicher Tag | 0 | Aktiv | Keine Herkunft hinterlegt |
-| Die Nacht hat geöffnet. Die großen Pläne können bis morgen warten. | Ohne besondere Wetterbedingung (Rückfalltext) | Nacht | 0 | Aktiv | Keine Herkunft hinterlegt |
+| Noch wach? Als Frührentner könntest du ausschlafen. | Ohne besondere Wetterbedingung (Rückfalltext) | Nacht | 0 | Aktiv | Nutzerbeitrag |
+| Guten Abend, alle Anzeigen geschrieben? Zähne geputzt? Dann ab ins Bett! | Ohne besondere Wetterbedingung (Rückfalltext) | Nacht | 0 | Aktiv | Nutzerbeitrag |
 
 ### So wird ausgewählt
 

@@ -335,8 +335,31 @@
         "none": []
       },
       "priority": 0,
-      "text": "Die Nacht hat geöffnet. Die großen Pläne können bis morgen warten.",
-      "figureId": null
+      "text": "Noch wach? Als Frührentner könntest du ausschlafen.",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Wortlaut unverändert übernommen."
+      }
+    },
+    {
+      "id": "nacht-anzeigen-zaehne-bett",
+      "enabled": true,
+      "period": "tonight",
+      "when": {
+        "all": [],
+        "any": [],
+        "none": []
+      },
+      "priority": 0,
+      "text": "Guten Abend, alle Anzeigen geschrieben? Zähne geputzt? Dann ab ins Bett!",
+      "figureId": null,
+      "provenance": {
+        "kind": "user-provided",
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Wortlaut unverändert übernommen."
+      }
     }
   ]
 }
