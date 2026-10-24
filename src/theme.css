@@ -86,10 +86,11 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 1; }
 .hour small { color: var(--rain); }
 .advice { background: var(--advice-bg); color: var(--advice-ink); }
 
-.header-actions { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
-.header-tools { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-.police-link { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; line-height: 1.4; color: var(--muted); text-decoration: none; }
-.police-link svg { display: block; flex: none; color: #517d9c; transform: translateY(-2px); }
+.header { align-items: center; }
+.header-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+.header-tools { display: flex; align-items: center; gap: 20px; }
+.police-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 10px; line-height: 1.4; white-space: nowrap; color: var(--muted); text-decoration: none; }
+.police-link svg { display: block; flex: none; color: #517d9c; }
 [data-theme="dark"] .police-link svg { color: #96b8ce; }
 .police-link:hover, .police-link:focus-visible { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
 .theme-toggle {
@@ -114,14 +115,17 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 1; }
 [data-theme="dark"] .theme-sun { display: block; }
 
 @media (max-width: 1050px) {
-  .header-actions { gap: 16px; }
+  .header-tools { gap: 14px; }
   .theme-label { display: none; }
   .theme-toggle { width: 44px; padding: 0; }
 }
 @media (max-width: 740px) {
-  .header { gap: 12px; align-items: center; }
-  .brand-name { font-size: clamp(24px, 6.8vw, 39px); }
-  .brand small { font-size: clamp(5px, 1.35vw, 8px); }
-  .header-actions { flex-shrink: 1; min-width: 0; }
-  .police-link { max-width: 125px; font-size: 9px; }
+  .header { flex-direction: column; align-items: stretch; gap: 16px; }
+  .brand-name { font-size: clamp(29px, 8.4vw, 39px); }
+  .brand small { font-size: clamp(6px, 1.7vw, 8px); }
+  .header-actions { width: 100%; min-width: 0; }
+  .header-tools { width: 100%; justify-content: space-between; gap: 12px; }
+  .police-link { font-size: clamp(9px, 2.6vw, 10px); }
+  .theme-label { display: inline; }
+  .theme-toggle { width: auto; flex: none; gap: 7px; padding: 0 12px; font-size: 10px; }
 }
