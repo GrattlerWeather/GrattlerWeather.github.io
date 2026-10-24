@@ -59,6 +59,22 @@ function icon(code, day = true) {
   return `<svg viewBox="0 0 64 66" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${drawing}</svg>`;
 }
 function add(parent, tag, text, className) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (className) e.className=className; parent.append(e); return e; }
+function shuffleTicker(texts, previous = []) {
+  const shuffled = [...texts];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  if (previous.length && shuffled[0]?.text === previous.at(-1).text) {
+    const next = shuffled.findIndex(entry => entry.text !== previous.at(-1).text);
+    if (next > 0) [shuffled[0], shuffled[next]] = [shuffled[next], shuffled[0]];
+  }
+  if (shuffled.length > 2 && shuffled.every((entry, i) => entry === previous[i])) {
+    const last = shuffled.length - 1;
+    [shuffled[last - 1], shuffled[last]] = [shuffled[last], shuffled[last - 1]];
+  }
+  return shuffled;
+}
 async function loadTicker() {
   try {
     const response=await fetch('./content/ticker.json');if(!response.ok)throw new Error();
@@ -66,10 +82,17 @@ async function loadTicker() {
     const texts=catalog.entries.filter(e=>e.enabled&&typeof e.text==='string'&&e.text.trim()&&[...e.text].length<=280);
     if(!texts.length)return;
     const track=$('ticker-track');track.replaceChildren();
-    for(let copy=0;copy<2;copy++){
-      const group=add(track,'div',undefined,'ticker-copy');if(copy)group.setAttribute('aria-hidden','true');
-      texts.forEach(e=>add(group,'span',e.text,'ticker-item'));
-    }
+    const current=add(track,'div',undefined,'ticker-copy');
+    const upcoming=add(track,'div',undefined,'ticker-copy');upcoming.setAttribute('aria-hidden','true');
+    const fill=(group,order)=>{group.replaceChildren();order.forEach(e=>add(group,'span',e.text,'ticker-item'));};
+    let order=shuffleTicker(texts), next=shuffleTicker(texts,order);
+    fill(current,order);fill(upcoming,next);
+    track.addEventListener('animationiteration',event=>{
+      if(event.target!==track||event.animationName!=='ticker-scroll')return;
+      // The upcoming group is already visible at the seam; preserve its order.
+      order=next;next=shuffleTicker(texts,order);
+      fill(current,order);fill(upcoming,next);
+    });
     track.style.setProperty('--ticker-duration',`${Math.max(40,texts.reduce((sum,e)=>sum+e.text.length,0)*.15)}s`);
     let savedMotion;try{savedMotion=localStorage.getItem('grattler-ticker-motion');}catch{}
     $('satire-ticker').classList.add('motion-enabled');

@@ -56,7 +56,7 @@ Die Auswahlregeln sind in [src/weather.mjs](src/weather.mjs) implementiert. Es h
 
 ## Ticker
 
-17 Einträge aus [content/ticker.json](content/ticker.json). Der Ticker zeigt Scherzmeldungen und hängt nicht vom tatsächlichen Wetter ab – auch wenn im Text Regen oder Hagel vorkommt.
+18 Einträge aus [content/ticker.json](content/ticker.json). Der Ticker zeigt Scherzmeldungen und hängt nicht vom tatsächlichen Wetter ab – auch wenn im Text Regen oder Hagel vorkommt.
 
 | Meldung | Wetterbedingung | Status | Einordnung |
 | --- | --- | --- | --- |
@@ -77,3 +77,4 @@ Die Auswahlregeln sind in [src/weather.mjs](src/weather.mjs) implementiert. Es h
 | Karaoke unterm Dach: Das Mikrofon beantragt vorsorglich eine Regenpause. | Keine; wetterunabhängig | Aktiv | Redaktionelle Satire |
 | Zugluft zwischen den Zähnen? Heute ist die Lücke der größte Wetterfühler. | Keine; wetterunabhängig | Aktiv | Redaktionelle Satire |
 | Recht haben bleibt trocken. Für alle anderen zieht eine kleine Diskussion auf. | Keine; wetterunabhängig | Aktiv | Redaktionelle Satire |
+| Knasttattoos mit Rechtschreibfehlern sind in Mode | Keine; wetterunabhängig | Aktiv | Community-Vorschlag über GitHub |
