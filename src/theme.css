@@ -46,6 +46,10 @@
 .location-controls .text-button { display: inline-flex; align-items: center; gap: 7px; }
 .location-controls .home-icon { flex: none; }
 
+.footer-contact { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+.footer-contact a { color: var(--ink); font-size: 11px; line-height: 1.6; text-underline-offset: 3px; }
+.footer-contact a:hover { color: var(--red); }
+
 :root { background: var(--canvas); }
 .day { background: var(--surface); border-color: var(--surface-border); }
 .search-panel { background: var(--panel); }
