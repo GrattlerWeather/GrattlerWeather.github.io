@@ -189,11 +189,12 @@
         ]
       },
       "priority": 30,
-      "text": "Heute ists kälter als in leons bierkühlschrank",
+      "text": "Heute ist’s kälter als in Leons Bierkühlschrank.",
       "figureId": null,
       "provenance": {
         "kind": "user-provided",
-        "sourceLabel": "Vom Nutzer beigesteuert"
+        "sourceLabel": "Vom Nutzer beigesteuert",
+        "note": "Rechtschreibung und Zeichensetzung redaktionell korrigiert."
       }
     },
     {
