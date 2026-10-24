@@ -1,76 +1,76 @@
 {
   "figures": [
     {
-      "src": "./public/images/figuren/bank-grau-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/bank-grau-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/bank-schwarz-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/bank-schwarz-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/blitz-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/blitz-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/couch-portrait-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/couch-portrait-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/duo-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/duo-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/gelbes-shirt-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/gelbes-shirt-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-01-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-01-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-02-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-02-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-03-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-03-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-04-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-04-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-05-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-05-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-06-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-06-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-07-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-07-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-08-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-08-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-09-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-09-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-10-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-10-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/grattler2-11-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/grattler2-11-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/lange-nase-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/lange-nase-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/rote-jacke-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/rote-jacke-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/unglaeubig-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/unglaeubig-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/vogel-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/vogel-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/wetterexperte-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/wetterexperte-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/zeigefinger-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/zeigefinger-comic-v1.webp"
     },
     {
-      "src": "./public/images/figuren/zylinder-comic-v1.png"
+      "src": "./public/images/figuren/weboptimiert/zylinder-comic-v1.webp"
     }
   ]
 }
