@@ -33,7 +33,9 @@
 
 .advice-content{display:flex;flex-direction:column;flex:1;min-width:0}
 .advice-controls{display:flex;align-items:center;gap:12px}
-.advice-toggle{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:6px 9px;border:1px solid #70816b;border-radius:3px;background:transparent;color:var(--advice-ink);font-size:10px;white-space:nowrap}
+.advice-toggle{position:relative;z-index:2;display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid #70816b;border-radius:50%;background:transparent;color:var(--advice-ink);flex-shrink:0}
+.advice-toggle svg{display:block;transition:transform .15s ease}
+.advice.is-collapsed .advice-toggle svg{transform:rotate(180deg)}
 .advice-toggle:hover{background:#ffffff12;border-color:var(--advice-ink)}
 .advice.is-collapsed{min-height:0;align-self:start;padding-top:16px;padding-bottom:16px}
 .advice.is-collapsed::after{display:none}

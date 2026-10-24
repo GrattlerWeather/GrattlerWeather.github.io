@@ -3,7 +3,9 @@ const $ = id => document.getElementById(id);
 function setAdviceCollapsed(collapsed) {
   $('advice-content').hidden=collapsed;
   $('advice-toggle').setAttribute('aria-expanded',String(!collapsed));
-  $('advice-toggle').textContent=collapsed?'Anzeigen +':'Minimieren −';
+  const label=collapsed?'Grattlerrat anzeigen':'Grattlerrat minimieren';
+  $('advice-toggle').setAttribute('aria-label',label);
+  $('advice-toggle').title=label;
   document.querySelector('.advice').classList.toggle('is-collapsed',collapsed);
 }
 try { setAdviceCollapsed(localStorage.getItem('grattler-advice-collapsed')==='true'); } catch { setAdviceCollapsed(false); }

@@ -8,8 +8,8 @@
   <meta name="description" content="Grattlerweather: echtes Wetter und fragwürdige Lebenshilfe. Dein Wetterbericht mit Charakter.">
   <title>Grattlerweather — Wetter mit Haltung.</title>
   <script src="./src/theme.mjs"></script>
-  <link rel="stylesheet" href="./src/styles.css?v=advice-collapse-1">
-  <link rel="stylesheet" href="./src/characters.css?v=advice-collapse-1">
+  <link rel="stylesheet" href="./src/styles.css?v=advice-icons-1">
+  <link rel="stylesheet" href="./src/characters.css?v=advice-icons-1">
   <link rel="stylesheet" href="./src/ticker.css">
   <link rel="stylesheet" href="./src/theme.css">
 </head>
@@ -47,7 +47,7 @@
           <div class="data-time"><span class="tiny-dot"></span><span id="updated">Wetterdaten werden geladen</span><button id="refresh" class="refresh" title="Wetter aktualisieren" aria-label="Wetter aktualisieren">↻</button></div>
         </div>
         <aside class="advice">
-          <div class="advice-top"><span class="eyebrow">DER GRATTLERRAT</span><div class="advice-controls"><span id="advice-period" class="advice-badge">FÜR HEUTE</span><button id="advice-toggle" class="advice-toggle" type="button" aria-expanded="true" aria-controls="advice-content">Minimieren <span aria-hidden="true">−</span></button></div></div>
+          <div class="advice-top"><span class="eyebrow">DER GRATTLERRAT</span><div class="advice-controls"><span id="advice-period" class="advice-badge">FÜR HEUTE</span><button id="advice-toggle" class="advice-toggle" type="button" aria-expanded="true" aria-controls="advice-content" aria-label="Grattlerrat minimieren" title="Grattlerrat minimieren"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg></button></div></div>
           <div id="advice-content" class="advice-content">
           <blockquote id="quote">Gleich gibt’s was<br>zum Wetter zu sagen.</blockquote>
           <p id="reason" class="advice-reason">Erst die Daten. Dann die großen Worte.</p>
@@ -79,6 +79,6 @@
     </main>
     <footer><div class="footer-logo">g° <span>Ein Wetterbericht mit Charakter.</span></div><p>Wetterdaten: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><br>Ortssuche: GeoNames · Empfehlungen: eigene redaktionelle Auswahl · Keine amtlichen Warnungen.</p><div class="footer-contact"><span class="local-label">KONTAKT</span><a href="mailto:GrattlerWeather@proton.me">GrattlerWeather@proton.me</a></div></footer>
   </div>
-  <script type="module" src="./src/app.mjs?v=advice-collapse-1"></script>
+  <script type="module" src="./src/app.mjs?v=advice-icons-1"></script>
 </body>
 </html>
