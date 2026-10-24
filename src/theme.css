@@ -45,6 +45,16 @@
 .location-line .home-icon { flex: none; align-self: center; color: var(--red); }
 .location-controls .text-button { display: inline-flex; align-items: center; gap: 7px; }
 .location-controls .home-icon { flex: none; }
+.location-controls .text-button:hover,
+.location-controls .text-button:focus-visible { color: var(--red); text-decoration: underline; text-underline-offset: 4px; }
+
+.days-section > .section-heading { margin-bottom: 18px; }
+.section-heading > .forecast-heading { flex-direction: column; align-items: flex-start; gap: 4px; }
+.forecast-heading .forecast-note { margin: 0; }
+
+.footer-logo { display: flex; align-items: center; gap: 12px; }
+.footer-logo img { display: block; width: 56px; height: 56px; object-fit: contain; flex: none; }
+.footer-logo span { display: inline; margin-left: 0; }
 
 .footer-contact { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
 .footer-contact a { color: var(--ink); font-size: 11px; line-height: 1.6; text-underline-offset: 3px; }
