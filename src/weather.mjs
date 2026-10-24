@@ -1,5 +1,29 @@
 export const finite = value => typeof value === 'number' && Number.isFinite(value);
 export const rounded = value => finite(value) ? String(Math.round(value)) : '—';
+export function uvLabel(value) {
+  if (!finite(value)) return '—';
+  const level = value < 3 ? 'niedrig' : value < 6 ? 'mäßig' : value < 8 ? 'hoch' : value < 11 ? 'sehr hoch' : 'extrem';
+  return `${value.toLocaleString('de-DE',{maximumFractionDigits:1})} · ${level}`;
+}
+export function airLabel(value) {
+  if (!finite(value)) return 'Nicht verfügbar';
+  const bands=['gut','ordentlich','mäßig','schlecht','sehr schlecht','extrem schlecht'];
+  return `${bands[Math.min(5, Math.max(0, Math.ceil(value/20)-1))]} · ${rounded(value)} EAQI`;
+}
+export function dayOutlook(data, now = Date.now()/1000) {
+  const h=data.hourly, today=localParts(now,data.timezone).date;
+  const indices=h.time.map((t,i)=>({t,i})).filter(({t})=>t>=now && localParts(t-1,data.timezone).date===today);
+  const wet=indices.find(({i})=>finite(h.precipitation_probability[i]) && h.precipitation_probability[i]>=50);
+  const covered=indices.length>0 && indices.every(({i})=>finite(h.precipitation_probability[i]));
+  const clock=t=>new Intl.DateTimeFormat('de-DE',{timeZone:data.timezone,hour:'2-digit',minute:'2-digit'}).format(new Date(t*1000));
+  const amount=data.daily.precipitation_sum?.[0];
+  const ongoing=finite(data.current.precipitation) && data.current.precipitation>=.1;
+  return {
+    rain:ongoing?'Aktuell Niederschlag':wet?`Ab ca. ${clock(Math.max(now,wet.t-3600))} Uhr`:covered?'Eher trocken':'Ausblick offen',
+    note:ongoing?'Weiterer Verlauf im Stundenausblick':wet?`${rounded(h.precipitation_probability[wet.i])} % Wahrscheinlichkeit`:covered?'Für den restlichen Tag':'Keine vollständigen Stundenwerte',
+    amount:finite(amount)?`${amount.toLocaleString('de-DE',{maximumFractionDigits:1})} mm heute gesamt`:'Tagesmenge nicht verfügbar'
+  };
+}
 export function description(code, day = true) {
   if (code === 0) return day ? 'Sonnig. Läuft bei dir.' : 'Klare Nacht.';
   if (code === 1) return 'Überwiegend klar.';

@@ -30,3 +30,12 @@
 .friend-links a:hover span{text-decoration:underline;text-underline-offset:3px}
 @media(min-width:741px) and (max-width:1050px){.fan-links{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}.friends{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.friend-links{grid-template-columns:repeat(3,100px)}}
 @media(max-width:740px){.friends{border-left:0;border-top:1px solid var(--line);padding:22px 0 0}.friend-links{gap:16px}}
+
+.advice-content{display:flex;flex-direction:column;flex:1;min-width:0}
+.advice-controls{display:flex;align-items:center;gap:12px}
+.advice-toggle{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:6px 9px;border:1px solid #70816b;border-radius:3px;background:transparent;color:var(--advice-ink);font-size:10px;white-space:nowrap}
+.advice-toggle:hover{background:#ffffff12;border-color:var(--advice-ink)}
+.advice.is-collapsed{min-height:0;align-self:start;padding-top:16px;padding-bottom:16px}
+.advice.is-collapsed::after{display:none}
+.advice.is-collapsed .advice-badge{display:none}
+@media(max-width:1050px){.advice-controls{gap:8px}.advice-controls .advice-badge{display:none}}
