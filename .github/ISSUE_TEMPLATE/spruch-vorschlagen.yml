@@ -8,13 +8,13 @@ body:
         Einen guten Spruch auf Lager? Her damit!
         Dein Vorschlag ist öffentlich sichtbar und wird vor der Übernahme geprüft.
         Bitte keine privaten Daten eintragen. Quellen helfen uns bei der richtigen Zuschreibung.
-  - type: dropdown
+  # GitHub URL prefills support text fields, not dropdown selections.
+  - type: input
     id: vorschlagsart
     attributes:
       label: Vorschlagsart
-      options:
-        - Grattlerrat
-        - Liveticker
+      description: Grattlerrat oder Liveticker. Bei Vorschlägen über die Website bereits ausgefüllt.
+      placeholder: Grattlerrat oder Liveticker
     validations:
       required: true
   - type: textarea
@@ -25,25 +25,12 @@ body:
       placeholder: Heute hagelts …
     validations:
       required: true
-  - type: dropdown
+  - type: input
     id: wetter
     attributes:
       label: Wetterlage
-      description: Nur für Grattlerrat ausfüllen. Mehrere Bedingungen müssen gemeinsam auftreten. Für Liveticker leer lassen.
-      multiple: true
-      options:
-        - Noch offen
-        - Sonne
-        - Regen
-        - Schnee
-        - Hagel
-        - Gewitter
-        - Wind
-        - Starke Böen
-        - Kälte
-        - Frost
-        - Hitze
-        - Nebel
+      description: "Nur für Grattlerrat: Sonne, Regen, Schnee, Hagel, Gewitter, Wind, Starke Böen, Kälte, Frost, Hitze oder Nebel; bei Unklarheit Noch offen. Mehrere Bedingungen mit Komma trennen; sie müssen gemeinsam auftreten. Für Liveticker leer lassen."
+      placeholder: Regen, Wind
     validations:
       required: false
   - type: textarea

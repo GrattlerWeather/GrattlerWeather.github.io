@@ -20,7 +20,7 @@ Du hast einen Spruch für den Grattlerrat oder eine kurze satirische Tickermeldu
 | --- | --- |
 | Vorschlagsart | **Grattlerrat** für einen wetterabhängigen Spruch, **Liveticker** für eine wetterunabhängige Scherzmeldung. |
 | Spruch | Der vollständige Text, höchstens 280 Zeichen. |
-| Wetterlage | Beim Grattlerrat eine oder mehrere passende Bedingungen wählen. Mehrere Bedingungen müssen gemeinsam auftreten, etwa Regen **und** Wind. Beim Liveticker leer lassen. „Noch offen“ muss vor einer Übernahme geklärt werden. |
+| Wetterlage | Beim Grattlerrat eine oder mehrere passende Bedingungen eintragen, mit Komma getrennt (etwa `Regen, Wind`). Mehrere Bedingungen müssen gemeinsam auftreten, etwa Regen **und** Wind. Beim Liveticker leer lassen. „Noch offen“ muss vor einer Übernahme geklärt werden. |
 | Quelle und Einordnung | Bei eigenen Texten „selbst ausgedacht“. Bei übernommenen Formulierungen möglichst Fundstellen-Link, Sprecher und Zeitstempel nennen. Bearbeitungen und unsichere Zuschreibungen klar kennzeichnen. Besondere Wünsche wie eine Temperaturschwelle ebenfalls hier erläutern. |
 | Verwendung | Die Erklärung zur Verwendung und Bearbeitung eigener Texte beziehungsweise zur Herkunft übernommener Texte bestätigen. |
 
