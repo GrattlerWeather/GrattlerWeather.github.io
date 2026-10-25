@@ -41,6 +41,8 @@
 @media(min-width:741px){
   /* Only the weather column determines the shared row height. */
   .advice{contain:size;min-height:0}
+  /* A collapsed card must include its header in its intrinsic height. */
+  .advice.is-collapsed{contain:none}
   .advice-content{position:relative;min-height:0;overflow-x:hidden;overflow-y:auto}
   .scene.character-scene{position:absolute;inset:auto 0 32px;height:min(250px,75%);min-height:0;margin:0}
   .advice-bottom{flex-shrink:0;margin-top:auto}
