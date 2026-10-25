@@ -22,6 +22,11 @@ try { lastSaying = localStorage.getItem('grattler-last-saying'); } catch {}
 // Legacy storage could contain precise GPS coordinates. Never read it back.
 try { localStorage.removeItem('grattler-place'); } catch {}
 async function restoreCity() {
+  let postcode;
+  try { postcode=localStorage.getItem('grattler-postcode'); } catch {}
+  if(/^\d{5}$/.test(postcode || '')) {
+    try { const city=(await postalPlaces(postcode))[0];return city?{...city,region:[city.admin1,city.country].join(' · ')}:defaults; } catch { return defaults; }
+  }
   let id;
   try { id = localStorage.getItem('grattler-city-id'); } catch {}
   if (!/^[1-9]\d{0,11}$/.test(id || '')) return defaults;
@@ -37,6 +42,8 @@ async function restoreCity() {
 }
 function selectCity(city) {
   try {
+    if(/^\d{5}$/.test(city.postcode || ''))localStorage.setItem('grattler-postcode',city.postcode);
+    else localStorage.removeItem('grattler-postcode');
     if (Number.isSafeInteger(city.id) && city.id > 0) localStorage.setItem('grattler-city-id', String(city.id));
     else localStorage.removeItem('grattler-city-id');
   } catch {}
@@ -270,20 +277,61 @@ async function load(next = place) {
   } finally{if(generation===request)$('refresh').disabled=false;}
 }
 $('search-toggle').addEventListener('click',()=>{const opened=$('search-panel').hidden;$('search-panel').hidden=!opened;$('search-toggle').setAttribute('aria-expanded',String(opened));if(opened)$('search').focus();});
-$('search-form').addEventListener('submit',async event=>{
-  event.preventDefault(); searchController?.abort();searchController=new AbortController();const signal=searchController.signal;
+let searchTimer;
+let postalCatalog;
+async function postalPlaces(query,signal) {
+  if(!postalCatalog) {
+    const response=await fetch('./content/postleitzahlen-de.json',{signal});
+    if(!response.ok)throw new Error('PLZ-Verzeichnis nicht verfügbar');
+    postalCatalog=(await response.json()).postcodes;
+  }
+  return Object.entries(postalCatalog).filter(([code])=>code.startsWith(query)).flatMap(([postcode,rows])=>rows.map(([name,admin1,latitude,longitude])=>({postcode,name,admin1,country:'Deutschland',latitude,longitude}))).slice(0,6);
+}
+function cancelSearch() {
+  clearTimeout(searchTimer);
+  searchController?.abort();
+  searchController=undefined;
+}
+function searchReady(query) {
+  return query.length >= 2;
+}
+async function searchPlaces() {
+  cancelSearch();
+  const query=$('search').value.trim();
+  if(!searchReady(query)) {
+    $('search-results').textContent=query ? (/^\d+$/.test(query) ? 'Bitte die vollständige Postleitzahl eingeben.' : 'Bitte mindestens zwei Buchstaben eingeben.') : '';
+    return;
+  }
+  searchController=new AbortController();const signal=searchController.signal;
+  const timer=setTimeout(()=>searchController?.signal===signal && searchController.abort(),10000);
   $('search-results').textContent='Orte werden gesucht …';
   try{
-    const response=await fetch(`https://geocoding-api.open-meteo.com/v1/search?${new URLSearchParams({name:$('search').value.trim(),count:'6',language:'de',format:'json'})}`,{signal});
-    if(!response.ok)throw new Error();const result=await response.json();if(signal.aborted)return;$('search-results').replaceChildren();
-    if(!result.results?.length)$('search-results').textContent='Kein Ort gefunden. Versuch einen anderen Namen.';
-    for(const item of result.results || []){const region=[item.admin1,item.country].filter(Boolean).join(' · ');const button=add($('search-results'),'button',`${item.name} · ${region}`,'result');button.type='button';button.addEventListener('click',()=>{$('search-panel').hidden=true;$('search-toggle').setAttribute('aria-expanded','false');selectCity(item);});}
-  }catch(error){if(error.name!=='AbortError')$('search-results').textContent='Ortssuche gerade nicht erreichbar. Bitte später erneut versuchen.';}
+    let result;
+    if(/^\d+$/.test(query))result={results:await postalPlaces(query,signal)};
+    else {
+      const response=await fetch(`https://geocoding-api.open-meteo.com/v1/search?${new URLSearchParams({name:query,count:'6',language:'de',format:'json'})}`,{signal});
+      if(!response.ok)throw new Error();result=await response.json();
+    }
+    if(signal.aborted)return;$('search-results').replaceChildren();
+    if(!result.results?.length)$('search-results').textContent='Kein Ort gefunden. Versuch einen Ortsnamen oder eine andere Postleitzahl.';
+    for(const item of result.results || []){const region=[item.admin1,item.country].filter(Boolean).join(' · ');const button=add($('search-results'),'button',`${item.postcode?item.postcode+' ':''}${item.name} · ${region}`,'result');button.type='button';button.addEventListener('click',()=>{cancelSearch();$('search-panel').hidden=true;$('search-toggle').setAttribute('aria-expanded','false');selectCity(item);});}
+  }catch(error){if(searchController?.signal===signal)$('search-results').textContent='Ortssuche gerade nicht erreichbar. Bitte erneut versuchen.';}
+  finally{clearTimeout(timer);}
+}
+$('search').addEventListener('input',()=>{
+  cancelSearch();
+  const query=$('search').value.trim();
+  $('search-results').textContent='';
+  if(searchReady(query))searchTimer=setTimeout(searchPlaces,350);
+  else if(query)$('search-results').textContent=/^\d+$/.test(query)?'Bitte die vollständige Postleitzahl eingeben.':'Bitte mindestens zwei Buchstaben eingeben.';
+});
+$('search-form').addEventListener('submit',event=>{
+  event.preventDefault();return searchPlaces();
 });
 $('locate').addEventListener('click',()=>{
   if(!navigator.geolocation){status('Standort ist hier nicht verfügbar. Bitte die Ortssuche nutzen.',true);return;}
   status('Warte auf deine Standortfreigabe …');
-  navigator.geolocation.getCurrentPosition(position=>{try{localStorage.removeItem('grattler-city-id');}catch{}return load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude});},()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
+  navigator.geolocation.getCurrentPosition(position=>{try{localStorage.removeItem('grattler-city-id');localStorage.removeItem('grattler-postcode');}catch{}return load({name:'Dein Standort',region:'Wetter an deiner Position',latitude:position.coords.latitude,longitude:position.coords.longitude});},()=>status('Standort nicht verfügbar oder nicht freigegeben. Die Ortssuche funktioniert weiterhin.',true),{timeout:12000,maximumAge:300000});
 });
 $('refresh').addEventListener('click',()=>load());
 $('suggest').addEventListener('click',()=>{$('suggest-dialog').showModal();$('suggest-heading').focus({preventScroll:true});});$('close-dialog').addEventListener('click',()=>$('suggest-dialog').close());
